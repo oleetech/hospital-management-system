@@ -1,5 +1,17 @@
 # Hospital Management System
 
+'''
+
+   ___    _                      _      _                                          _ 
+  / _ \  | |   ___    ___       / \    | |__    _ __ ___    _ __ ___     ___    __| |
+ | | | | | |  / _ \  / _ \     / _ \   | '_ \  | '_ ` _ \  | '_ ` _ \   / _ \  / _` |
+ | |_| | | | |  __/ |  __/    / ___ \  | | | | | | | | | | | | | | | | |  __/ | (_| |
+  \___/  |_|  \___|  \___|   /_/   \_\ |_| |_| |_| |_| |_| |_| |_| |_|  \___|  \__,_|
+                                                                                     
+                             
+
+'''
+
 Hospital Management System is a Django-based web application for managing patient records, appointments, and hospital visits.
 
 ## Installation
