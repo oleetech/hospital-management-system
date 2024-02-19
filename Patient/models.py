@@ -12,7 +12,7 @@ class Patient(models.Model):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     address = models.TextField()
     contact_number = models.CharField(max_length=15)
-    email = models.EmailField()
+    email = models.EmailField(default='',null=True,blank=True)
     medical_history = models.TextField(blank=True)
     allergies = models.TextField(blank=True)
     
