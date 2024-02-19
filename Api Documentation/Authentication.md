@@ -19,7 +19,7 @@
 
 ## User Login
 
-- **URL:** /auth/token/login/
+- **URL:** http://localhost:8000/auth/token/login/
 - **Method:** POST
 - **Body:** JSON
 
@@ -34,7 +34,7 @@
 
 ## User Logout
 
-- **URL:** /auth/token/logout/
+- **URL:** http://localhost:8000/auth/token/logout/
 - **Method:** POST
 - **Headers:** 
     - **Key:** Authorization
@@ -44,7 +44,7 @@
 
 ## User Profile Details
 
-- **URL:** /auth/users/me/
+- **URL:** http://localhost:8000/auth/users/me/
 - **Method:** GET
 - **Headers:** 
     - **Key:** Authorization
@@ -54,7 +54,7 @@
 
 ## User Profile Update
 
-- **URL:** /auth/users/me/
+- **URL:** http://localhost:8000/auth/users/me/
 - **Method:** PUT
 - **Headers:** 
     - **Key:** Authorization
@@ -73,7 +73,7 @@
 
 ## Password Reset Request
 
-- **URL:** /auth/users/reset_password/
+- **URL:** http://localhost:8000/auth/users/reset_password/
 - **Method:** POST
 - **Body:** JSON
 
@@ -87,7 +87,7 @@
 
 ## Password Reset Confirmation
 
-- **URL:** /auth/users/reset_password_confirm/
+- **URL:** http://localhost:8000/auth/users/reset_password_confirm/
 - **Method:** POST
 - **Body:** JSON with the data to confirm the password reset.
 
@@ -105,7 +105,7 @@
 
 ## User Login
 
-- **URL:** /auth/jwt/create/
+- **URL:** http://localhost:8000/auth/jwt/create/
 - **Method:** POST
 - **Body:** JSON
 
@@ -120,7 +120,7 @@
 
 ## JWT Token Refresh
 
-- **URL:** /auth/jwt/refresh/
+- **URL:** http://localhost:8000/auth/jwt/refresh/
 - **Method:** POST
 - **Body:** JSON with the refresh token.
 
@@ -134,7 +134,7 @@
 
 ## JWT Token Verify
 
-- **URL:** /auth/jwt/verify/
+- **URL:** http://localhost:8000/auth/jwt/verify/
 - **Method:** POST
 - **Body:** JSON with the token.
 
