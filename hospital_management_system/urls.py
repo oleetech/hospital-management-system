@@ -22,6 +22,8 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')), 
 
+    
+
     path('api/patient-management/', include('Patient.api.urls')),  
     path('api/doctor-management/', include('Doctor.api.urls')),  
     path('api/appointment-management/', include('Appointment.api.urls')),
