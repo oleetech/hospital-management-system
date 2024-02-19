@@ -47,9 +47,38 @@ INSTALLED_APPS = [
     'Admission',
     'LabTest',
     'Employee',
+    # For Api
+    'corsheaders',
+    'rest_framework',
+    'djoser',
+    'rest_framework_simplejwt'
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True
+
+# Import necessary module
+from datetime import timedelta
+# Configure JWT token expiration time
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # Example: Expires in 15 minutes
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),      # Example: Expires in 1 day
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': True,
+}
+
+
+# settings.py
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',  # Token authentication
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # JWT authentication
+        'rest_framework.authentication.SessionAuthentication',  # Session authentication
+        'rest_framework.authentication.BasicAuthentication',  # Basic authentication
+    ],
+}
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
