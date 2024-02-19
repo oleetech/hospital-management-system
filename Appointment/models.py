@@ -2,6 +2,8 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from Patient.models import Patient
 from Doctor.models import Doctor,DoctorAvailability
+import calendar
+
 
 class Appointment(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
@@ -15,19 +17,25 @@ class Appointment(models.Model):
         return f"{self.patient.name}'s Appointment with Dr. {self.doctor.username}"
 
         
-    def save(self, *args, **kwargs):
-        # Check if there is DoctorAvailability for the doctor on the appointment date
-        try:
-            doctor_availability = DoctorAvailability.objects.get(
-                doctor=self.doctor,
-                day_of_week=self.date.weekday() + 1  # Monday=1, Sunday=7
-            )
-            if self.time < doctor_availability.start_time or self.time > doctor_availability.end_time:
-                raise ValidationError("Doctor is not available at this time.")
-        except DoctorAvailability.DoesNotExist:
-            raise ValidationError("Doctor is not available on this day.")
+    def __str__(self):
+        return f"{self.patient.name}'s Appointment with Dr. {self.doctor.name}"
 
+    def save(self, *args, **kwargs):
+        # Convert appointment date to weekday (Monday=1, Sunday=7)
+        appointment_day = self.date.weekday() + 1
+
+        # Check if the doctor is available on this weekday
+        doctor_availability = DoctorAvailability.objects.filter(doctor=self.doctor, day_of_week__day=appointment_day)
+        if not doctor_availability.exists():
+            raise ValidationError("Doctor is not available on this day.")
+        
+        # Further, check if the appointment time is within the doctor's available hours
+        for availability in doctor_availability:
+            if self.time < availability.start_time or self.time > availability.end_time:
+                raise ValidationError("Doctor is not available at this time.")
+        
         super().save(*args, **kwargs)
+
 
 class Visit(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)

@@ -8,6 +8,9 @@ class Doctor(models.Model):
         ('F', 'Female'),
         ('O', 'Other'),
     ]
+
+
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
@@ -35,9 +38,25 @@ class Nurse(models.Model):
         return self.user.get_full_name() if self.user.get_full_name() else self.user.username
 
 
+# Model to represent days of the week
+class WeekDay(models.Model):
+    DAY_CHOICES = [
+        (1, "Monday"),
+        (2, "Tuesday"),
+        (3, "Wednesday"),
+        (4, "Thursday"),
+        (5, "Friday"),
+        (6, "Saturday"),
+        (7, "Sunday"),
+    ]
+    day = models.IntegerField(choices=DAY_CHOICES, unique=True)
+
+    def __str__(self):
+        return self.get_day_display()
+
 class DoctorAvailability(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    day_of_week = models.IntegerField(choices=[(i, i) for i in range(1, 8)])
+    day_of_week = models.ManyToManyField(WeekDay, related_name='doctor_availabilities')
     start_time = models.TimeField()
     end_time = models.TimeField()
 

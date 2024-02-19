@@ -1,6 +1,6 @@
 
 from django.contrib import admin
-from .models import Doctor, DoctorAvailability,Nurse
+from .models import Doctor, DoctorAvailability,Nurse,WeekDay
 
 class DoctorAdmin(admin.ModelAdmin):
     list_display = ('name', 'gender', 'contact_number', 'specialization', 'qualifications')
@@ -11,9 +11,13 @@ class NurseAdmin(admin.ModelAdmin):
     search_fields = ['name' ]  
 
 class DoctorAvailabilityAdmin(admin.ModelAdmin):
-    list_display = ('doctor', 'day_of_week', 'start_time', 'end_time')
-    list_filter = ['day_of_week']  # Add filters you want to apply
+    list_display = ('doctor', 'get_days_of_week', 'start_time', 'end_time')
+
+    def get_days_of_week(self, obj):
+        return ", ".join([day.get_day_display() for day in obj.day_of_week.all()])
+    get_days_of_week.short_description = 'Days of the Week'
 
 admin.site.register(Doctor, DoctorAdmin)
 admin.site.register(DoctorAvailability, DoctorAvailabilityAdmin)
 admin.site.register(Nurse, NurseAdmin)
+admin.site.register(WeekDay)
